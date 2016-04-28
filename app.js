@@ -54,17 +54,12 @@ bot.on('message', (payload, reply) => {
 				  if (err) throw err
 				});
 				
-				text = "";
 				for(let i = 0; i< json.list.length; i++){
-					//text += `${i}: ${json.list[i].definition} \n`;
+					text = `${i}: ${json.list[i].definition}`;
 					reply({ text }, (err) => {
 					  if (err) throw err
 					});
-					
 				}
-				
-				
-					
 			} else {
 				
 				throw "No results found!";
