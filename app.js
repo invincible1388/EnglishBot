@@ -56,13 +56,14 @@ bot.on('message', (payload, reply) => {
 				
 				text = "";
 				for(let i = 0; i< json.list.length; i++){
-					text += `${i}: ${json.list[i].definition} \n`;
+					//text += `${i}: ${json.list[i].definition} \n`;
+					reply({ text }, (err) => {
+					  if (err) throw err
+					});
 					
 				}
 				
-				reply({ text }, (err) => {
-					  if (err) throw err
-					});
+				
 					
 			} else {
 				
