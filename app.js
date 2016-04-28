@@ -14,7 +14,7 @@ bot.on('error', (err) => {
 
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
-  let query = encodeURIComponent(text);
+  let query = text;
   
   bot.getProfile(payload.sender.id, (err, profile) => {
     if (err) throw err
@@ -30,7 +30,7 @@ bot.on('message', (payload, reply) => {
 	
 	var options = {
 	  host: 'api.urbandictionary.com',
-	  path: '/v0/define?term='+query
+	  path: '/v0/define?term='+encodeURIComponent(query),
 	};
 
 	var callback = function(response) {
@@ -46,22 +46,24 @@ bot.on('message', (payload, reply) => {
 	  var json = JSON.parse(str);
 			try{
 			
-			
-			console.log(util.inspect(json, false, null));
-			
 			text = "";
 			if(json.list.length > 0){
-				text = query+" meaning:";
+				text = `${query} meaning:`;
+				
 				reply({ text }, (err) => {
 				  if (err) throw err
 				});
 				
+				text = "";
 				for(let i = 0; i< json.list.length; i++){
-					text = `${i}: ${json.list[i].definition}`;
-					reply({ text }, (err) => {
+					text += `${i}: ${json.list[i].definition} \n`;
+					
+				}
+				
+				reply({ text }, (err) => {
 					  if (err) throw err
 					});
-				}
+					
 			} else {
 				
 				throw "No results found!";
