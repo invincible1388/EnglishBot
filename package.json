@@ -1,0 +1,20 @@
+{
+  "name": "EnglishBot",
+  "version": "0.0.1",
+  "description": "A sample Facebook messenger bot",
+  "engines": {
+    "node": "5.9.1"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "node-messenger"
+  ],
+  "license": "MIT"
+}
