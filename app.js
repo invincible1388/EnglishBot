@@ -1,7 +1,6 @@
 'use strict'
 const http = require('http');
 const Bot = require('messenger-bot');
-const parseString = require('xml2js').parseString;
 const util = require('util');
 const cool = require('cool-ascii-faces');
 let bot = new Bot({
@@ -15,7 +14,7 @@ bot.on('error', (err) => {
 
 bot.on('message', (payload, reply) => {
   let text = payload.message.text
-  let query = text;
+  let query = encodeURIComponent(text);
   
   bot.getProfile(payload.sender.id, (err, profile) => {
     if (err) throw err
@@ -56,14 +55,20 @@ bot.on('message', (payload, reply) => {
 				reply({ text }, (err) => {
 				  if (err) throw err
 				});
+				
+				for(let i = 0; i< json.list.length; i++){
+					text = `${i}: ${json.list[i].definition}`;
+					reply({ text }, (err) => {
+					  if (err) throw err
+					});
+				}
+			} else {
+				
+				throw "No results found!";
+			
 			}
 			
-			for(let i = 0; i< json.list.length; i++){
-				text = `${i}: ${json.list[i].definition}`;
-				reply({ text }, (err) => {
-				  //if (err) throw err
-				});
-			}
+			
 			
 		  } catch (e){
 			text = `Sorry, we were not able to find the meaning of ${query}.`;
