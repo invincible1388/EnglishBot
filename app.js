@@ -84,4 +84,4 @@ bot.on('message', (payload, reply) => {
   });
 });
 
-http.createServer(bot.middleware()).listen(3000)
+http.createServer(bot.middleware()).listen(process.env.PORT || 3000)
